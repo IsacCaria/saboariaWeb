@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= title || 'Saboaria' %></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- fbConfig will be injected into window.fbConfig by server middleware -->
+    <script>
+      window.fbConfig = <%- JSON.stringify(fbConfig || {}) %>;
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script>
+      if (window.firebase && window.fbConfig && Object.keys(window.fbConfig).length) {
+        try {
+          firebase.initializeApp(window.fbConfig);
+        } catch (e) {
+          console.warn('Firebase init warning:', e);
+        }
+      }
+    </script>
+    <script src="/js/script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div id="logo"><img src="/img/LOGO-Saboaria-Web.png" alt="Logo Sabonetes Artesanais"></div>
+      <nav>
+        <a href="/">Início</a>
+        <a href="/produtos">Produtos</a>
+        <a href="/sobre">Sobre</a>
+        <a href="/equipe">Equipe</a>
+        <a href="/faleconosco">Fale Conosco</a>
+        <a href="#" id="btn-login">Login</a>
+      </nav>
+    </header>
+
+    <main>
+      <%- body %>
+    </main>
+
+    <footer>
+      <!-- rodapé -->
+    </footer>
+  </body>
+</html>

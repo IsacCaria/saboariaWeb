@@ -1,0 +1,86 @@
+<!-- Converted to EJS template; edit in /views/ -->
+ 
+  <div id="aviso">
+     <p id="texto-aviso"></p>
+     <button id="editar-aviso" style="display: none;">✏️ Editar aviso</button>
+  </div>
+
+  <section id="banner">
+    <h1>CONHEÇA NOSSOS PRODUTOS</h1>
+  </section>
+
+  <section id="produtos">
+    <h2 class="titulo-secao">Produtos</h2>
+    <div class="produtos-container" id="lista-produtos"></div>
+  </section>
+
+  <section id="personalizar-sabonete">
+    <h2>Monte seu Sabonete</h2>
+    <form id="formPersonalizado">
+      <label for="essencia">Escolha a Essência:</label><br>
+      <select id="essencia" required>
+        <option value="" disabled selected>Selecione uma essência</option>
+      </select>
+
+      <label for="cor">Escolha a Cor:</label><br>
+      <select id="cor" required>
+        <option value="" disabled selected>Selecione uma cor</option>
+      </select>
+
+      <label for="forma">Escolha a Forma:</label><br>
+      <select id="forma" required>
+        <option value="" disabled selected>Selecione uma forma</option>
+      </select>
+
+      <label for="quantidade">Quantidade:</label><br>
+      <input type="number" id="quantidade" min="1" value="1" required><br><br>
+
+      <p id="preco-forma-texto" style="font-weight: bold;"></p>
+      <p id="preco-total" style="font-weight: bold;"></p>
+
+      <button type="submit" id="enviar-pedido" disabled style="background-color: #ccc; cursor: not-allowed;">
+        Enviar Pedido pelo WhatsApp
+      </button>
+    </form>
+  </section>
+
+  <button id="leitor-pagina" aria-label="Ler conteúdo da página">🔊 Ler Página</button>
+
+  <div id="login-modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Login</h3>
+      <input type="email" id="login-email" placeholder="Email" required />
+      <input type="password" id="login-password" placeholder="Senha" required />
+      <button id="login-submit">Entrar</button>
+      <p>Não tem conta? <a href="#" id="criar-conta">Criar conta</a></p>
+    </div>
+  </div>
+
+  <div id="painel-admin" style="display: none; margin: 40px auto; max-width: 800px;">
+    <h2 style="text-align: center; margin-bottom: 20px;">🔧 Painel de Administração</h2>
+
+    <div class="caixa-admin">
+      <h3>Essências</h3>
+      <ul id="lista-essencias"></ul>
+      <input type="text" id="nova-essencia" placeholder="Nova essência">
+      <button onclick="adicionarEssencia()">Adicionar</button>
+    </div>
+
+    <div class="caixa-admin">
+      <h3>Cores</h3>
+      <ul id="lista-cores"></ul>
+      <input type="text" id="nova-cor" placeholder="Nova cor">
+      <button onclick="adicionarCor()">Adicionar</button>
+    </div>
+
+    <div class="caixa-admin">
+      <h3>Formas</h3>
+      <ul id="lista-formas"></ul>
+      <input type="text" id="nova-forma" placeholder="Nome da forma">
+      <input type="number" id="preco-forma" placeholder="Preço">
+      <button type="button" onclick="adicionarForma()">Adicionar</button>
+    </div>
+  </div>
+
+

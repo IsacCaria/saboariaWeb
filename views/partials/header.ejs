@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title || 'Saboaria' %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="/js/script.js" defer></script>
+</head>
+<body>
+  <header>
+    <div id="logo"><img src="/img/LOGO-Saboaria-Web.png" alt="Logo Sabonetes Artesanais"></div>
+    <nav>
+      <a href="/">Início</a>
+      <a href="/sobre">Sobre</a>
+      <a href="/equipe">Equipe</a>
+      <a href="/faleconosco">Fale Conosco</a>
+      <a href="#" id="btn-login">Login</a>
+    </nav>
+  </header>

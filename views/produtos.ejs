@@ -1,0 +1,21 @@
+<main id="produtos-page">
+    <h1>Nossos Produtos</h1>
+    
+    <div class="product-grid">
+      <% if(products && products.length){ %>
+        <% products.forEach(p => { %>
+          <div class="product-card">
+            <img src="/img/<%= p.image %>" alt="<%= p.name %>">
+            
+            <div class="card-info">
+              <h3><%= p.name %></h3>
+              <p class="price">R$ <%= p.price %></p>
+              <a href="/produtos/<%= p.id %>" class="btn-detalhes">Ver Detalhes</a>
+            </div>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <p>Nenhum produto cadastrado no momento.</p>
+      <% } %>
+    </div>
+</main>
