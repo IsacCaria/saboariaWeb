@@ -1,0 +1,23 @@
+{
+  "name": "projeto-saboaria-mvc",
+  "version": "1.0.0",
+  "description": "Projeto adaptado para MVC com Node.js + Express (gerado automaticamente)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "chromedriver": "^142.0.3",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
+    "mysql2": "^3.3.0",
+    "selenium-webdriver": "^4.38.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
