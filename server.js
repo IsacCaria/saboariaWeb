@@ -20,13 +20,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Inject Firebase config from environment into views (res.locals.fbConfig)
+// Inject Supabase config (used by client-side code)
 app.use((req, res, next) => {
-  res.locals.fbConfig = {
-    apiKey: process.env.FB_API_KEY || '',
-    authDomain: process.env.FB_AUTH_DOMAIN || '',
-    projectId: process.env.FB_PROJECT_ID || ''
-    // add other fields as needed
+  res.locals.supabaseConfig = {
+    url: process.env.SUPABASE_URL || '',
+    anonKey: process.env.SUPABASE_ANON_KEY || ''
   };
   next();
 });

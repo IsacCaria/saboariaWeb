@@ -5,25 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= title || 'Saboaria' %></title>
     <link rel="stylesheet" href="/css/style.css">
-    <!-- fbConfig will be injected into window.fbConfig by server middleware -->
+    <!-- Supabase client will be initialized with these values -->
     <script>
-      window.fbConfig = <%- JSON.stringify(fbConfig || {}) %>;
+      window.supabaseConfig = <%- JSON.stringify(supabaseConfig || {}) %>;
     </script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
     <script>
-      if (window.firebase && window.fbConfig && Object.keys(window.fbConfig).length) {
+      if (window.supabase && window.supabaseConfig && window.supabaseConfig.url && window.supabaseConfig.anonKey) {
         try {
-          firebase.initializeApp(window.fbConfig);
+          window.supabaseClient = window.supabase.createClient(window.supabaseConfig.url, window.supabaseConfig.anonKey);
         } catch (e) {
-          console.warn('Firebase init warning:', e);
+          console.warn('Supabase init warning:', e);
         }
       }
     </script>
     <script src="/js/script.js" defer></script>
   </head>
   <body>
+    <!-- Sistema de Notificações -->
+    <div id="notification-container"></div>
+    
+    <!-- Modal de Confirmação Global -->
+    <div id="confirm-modal" class="confirm-modal" role="dialog" aria-hidden="true" style="display:none;">
+      <div class="confirm-modal-content">
+        <div class="confirm-modal-header">
+          <h3 id="confirm-modal-title">Confirmar</h3>
+        </div>
+        <div class="confirm-modal-body">
+          <p id="confirm-modal-message">Deseja prosseguir?</p>
+        </div>
+        <div class="confirm-modal-actions">
+          <button id="confirm-modal-cancel" class="btn-cancel">Cancelar</button>
+          <button id="confirm-modal-ok" class="btn-ok">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .confirm-modal { position: fixed; inset: 0; display:flex; align-items:center; justify-content:center; background: rgba(0,0,0,0.45); z-index: 4000; }
+      .confirm-modal-content { background: #fff; padding: 20px; border-radius: 10px; width: 90%; max-width: 420px; box-shadow: 0 8px 32px rgba(0,0,0,0.25); }
+      .confirm-modal-header h3 { margin: 0 0 10px 0; color: #403144; }
+      .confirm-modal-body p { margin: 0 0 15px 0; color: #666; }
+      .confirm-modal-actions { display:flex; gap:10px; justify-content:flex-end; }
+      .confirm-modal .btn-cancel { background:#999; color:#fff; padding:8px 12px; border-radius:6px; border:none; cursor:pointer; }
+      .confirm-modal .btn-ok { background:#7e69a0; color:#fff; padding:8px 12px; border-radius:6px; border:none; cursor:pointer; }
+      .confirm-modal.hidden { display:none; }
+    </style>
+
+    <script>
+      // showConfirm(titleOrMessage, message?) => Promise<boolean>
+      window.showConfirm = function(titleOrMessage, message) {
+        return new Promise((resolve) => {
+          const modal = document.getElementById('confirm-modal');
+          const titleEl = document.getElementById('confirm-modal-title');
+          const msgEl = document.getElementById('confirm-modal-message');
+          const btnOk = document.getElementById('confirm-modal-ok');
+          const btnCancel = document.getElementById('confirm-modal-cancel');
+
+          if (!modal || !btnOk || !btnCancel) return resolve(false);
+
+          if (message === undefined) {
+            titleEl.style.display = 'none';
+            msgEl.textContent = titleOrMessage || 'Deseja prosseguir?';
+          } else {
+            titleEl.style.display = '';
+            titleEl.textContent = titleOrMessage || 'Confirmar';
+            msgEl.textContent = message || '';
+          }
+
+          modal.style.display = 'flex';
+
+          const cleanup = () => {
+            modal.style.display = 'none';
+            btnOk.removeEventListener('click', onOk);
+            btnCancel.removeEventListener('click', onCancel);
+            modal.removeEventListener('click', onBackdrop);
+          };
+
+          const onOk = () => { cleanup(); resolve(true); };
+          const onCancel = () => { cleanup(); resolve(false); };
+          const onBackdrop = (e) => { if (e.target === modal) { cleanup(); resolve(false); } };
+
+          btnOk.addEventListener('click', onOk);
+          btnCancel.addEventListener('click', onCancel);
+          modal.addEventListener('click', onBackdrop);
+        });
+      };
+    </script>
+
     <header>
       <div id="logo"><img src="/img/LOGO-Saboaria-Web.png" alt="Logo Sabonetes Artesanais"></div>
       <nav>
@@ -32,9 +101,135 @@
         <a href="/sobre">Sobre</a>
         <a href="/equipe">Equipe</a>
         <a href="/faleconosco">Fale Conosco</a>
-        <a href="#" id="btn-login">Login</a>
+        <div class="user-menu-container">
+          <a href="#" id="btn-login">Login</a>
+          <div id="user-menu" class="user-menu hidden">
+            <div class="user-menu-header">
+              <span id="user-name">Minha Conta</span>
+            </div>
+            <div class="user-menu-divider"></div>
+            <a href="#" id="menu-perfil" class="user-menu-item">👤 Perfil</a>
+            <a href="#" id="menu-pedidos" class="user-menu-item">📦 Meus Pedidos</a>
+            <a href="#" id="menu-gerenciar" class="user-menu-item">⚙️ Gerenciar Conta</a>
+            <div class="user-menu-divider"></div>
+            <a href="#" id="menu-logout" class="user-menu-item logout">🚪 Sair</a>
+          </div>
+        </div>
       </nav>
     </header>
+
+    <div id="login-modal" class="modal hidden" role="dialog" aria-hidden="true">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3 id="modal-title">Entrar</h3>
+        
+        <!-- Modo Login -->
+        <div id="signin-form">
+          <input id="login-email" type="email" placeholder="Email" />
+          <input id="login-password" type="password" placeholder="Senha" />
+          <button id="login-submit">Entrar</button>
+          <p id="toggle-mode">Não tem conta? <a href="#" id="criar-conta">Criar conta</a></p>
+        </div>
+        
+        <!-- Modo Cadastro -->
+        <div id="signup-form" style="display: none;">
+          <input id="signup-name" type="text" placeholder="Nome completo" />
+          <input id="signup-email" type="email" placeholder="Email" />
+          <p id="email-error" style="color: red; font-size: 12px; margin-top: -8px; display: none;"></p>
+          
+          <input id="signup-phone" type="tel" placeholder="Telefone (11 números)" />
+          <p id="phone-error" style="color: red; font-size: 12px; margin-top: -8px; display: none;"></p>
+          
+          <input id="signup-password" type="password" placeholder="Senha (maiúscula, número, 6+ caracteres)" />
+          <p id="password-strength" style="font-size: 12px; margin-top: -8px;"></p>
+          
+          <input id="signup-password-confirm" type="password" placeholder="Confirmar senha" />
+          <p id="password-match" style="font-size: 12px; margin-top: -8px;"></p>
+          
+          <button id="signup-submit" disabled style="opacity: 0.5; cursor: not-allowed;">Criar Conta</button>
+          <p id="toggle-mode-back">Já tem conta? <a href="#" id="voltar-login">Entrar</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Perfil do Usuário -->
+    <div id="profile-modal" class="account-modal">
+      <div class="account-modal-content">
+        <button class="account-modal-close">&times;</button>
+        <h2>👤 Meu Perfil</h2>
+        
+        <div class="account-section">
+          <h3>Informações Pessoais</h3>
+          <div class="account-info">
+            <label>Nome</label>
+            <span id="profile-name">-</span>
+          </div>
+          <div class="account-info">
+            <label>Email</label>
+            <span id="profile-email">-</span>
+          </div>
+          <div class="account-info">
+            <label>Telefone</label>
+            <span id="profile-phone">-</span>
+          </div>
+          <button class="edit-btn" id="edit-profile-btn">✏️ Editar Perfil</button>
+        </div>
+
+        <div class="account-section" id="edit-profile-form" style="display: none;">
+          <h3>Editar Perfil</h3>
+          <input type="text" id="edit-name" placeholder="Nome completo" />
+          <input type="tel" id="edit-phone" placeholder="Telefone" />
+          <button class="edit-btn" id="save-profile-btn">💾 Salvar Alterações</button>
+          <button class="edit-btn" style="background-color: #999; margin-left: 8px;" id="cancel-profile-btn">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Meus Pedidos -->
+    <div id="orders-modal" class="account-modal">
+      <div class="account-modal-content">
+        <button class="account-modal-close">&times;</button>
+        <h2>📦 Meus Pedidos</h2>
+        
+        <div class="account-section">
+          <div id="orders-list">
+            <p style="text-align: center; color: #999;">Você ainda não tem pedidos.</p>
+          </div>
+        </div>
+
+        <div class="account-section">
+          <a href="/produtos" style="display: inline-block; background-color: #44b475; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">🛍️ Continuar Comprando</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Gerenciar Conta -->
+    <div id="manage-modal" class="account-modal">
+      <div class="account-modal-content">
+        <button class="account-modal-close">&times;</button>
+        <h2>⚙️ Gerenciar Conta</h2>
+        
+        <div class="account-section">
+          <h3>Segurança</h3>
+          <button class="edit-btn" id="change-password-btn">🔐 Alterar Senha</button>
+          
+          <div id="change-password-form" style="display: none; margin-top: 15px;">
+            <input type="password" id="current-password" placeholder="Senha atual" />
+            <input type="password" id="new-password" placeholder="Nova senha" />
+            <input type="password" id="confirm-new-password" placeholder="Confirmar nova senha" />
+            <button class="edit-btn" id="save-password-btn">💾 Atualizar Senha</button>
+            <button class="edit-btn" style="background-color: #999; margin-left: 8px;" id="cancel-password-btn">Cancelar</button>
+          </div>
+        </div>
+
+        <div class="account-section">
+          <h3>Dados da Conta</h3>
+          <p style="font-size: 13px; color: #666;">Membro desde: <span id="member-since">-</span></p>
+          <p style="font-size: 13px; color: #666;">Total de pedidos: <span id="total-orders">0</span></p>
+          <button class="delete-btn" id="delete-account-btn">🗑️ Deletar Conta</button>
+        </div>
+      </div>
+    </div>
 
     <main>
       <%- body %>

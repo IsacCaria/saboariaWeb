@@ -1,3 +1,11 @@
 exports.dashboard = (req, res) => {
-  return res.send('<h1>Admin</h1><p>Painel mínimo - implemente autenticação.</p>');
+  res.render('admin/dashboard', { title: 'Painel Administrativo' });
+};
+
+exports.produtos = (req, res) => {
+  res.render('admin/produtos', { title: 'Gerenciar Produtos' });
+};
+
+exports.pedidos = (req, res) => {
+  res.render('admin/pedidos', { title: 'Pedidos' });
 };

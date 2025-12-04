@@ -5,9 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title || 'Saboaria' %></title>
   <link rel="stylesheet" href="/css/style.css">
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script>
+    window.supabaseConfig = <%- JSON.stringify(supabaseConfig || {}) %>;
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
+  <script>
+    if (window.supabase && window.supabaseConfig && window.supabaseConfig.url && window.supabaseConfig.anonKey) {
+      try { window.supabaseClient = window.supabase.createClient(window.supabaseConfig.url, window.supabaseConfig.anonKey); } catch (e) { console.warn('Supabase init:', e); }
+    }
+  </script>
   <script src="/js/script.js" defer></script>
 </head>
 <body>

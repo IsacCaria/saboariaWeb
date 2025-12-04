@@ -1,0 +1,830 @@
+/* Paleta suave: lilás e verde claro */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fdfaff;
+  color: #403144;
+}
+
+header {
+  background-color: #e7dff3;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#logo img {
+  height: 60px;
+}
+
+nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #314432;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #7e69a0;
+}
+
+#aviso {
+  background-color: #7331ee;
+  padding: 12px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  border-top: 2px solid #7331ee;
+  border-bottom: 2px solid #7331ee;
+  color: #ffffff;
+}
+
+#banner {
+  text-align: center;
+  padding: 30px;
+  font-size: 22px;
+  background-color: #f1e8fc;
+  color: #403144;
+}
+
+#produtos {
+  padding: 40px;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.produtos-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.card-produto {
+  background-color: #f5f0fb;
+  width: 200px;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.card-produto img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.card-produto p {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #403144;
+}
+
+
+/* Seções com formulário */
+#selecao-produtos,
+#personalizar-sabonete,
+#desenvolvedores {
+  padding: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fcfcfc;
+  text-align: center;
+  border-top: 2px solid #c6b2de;
+}
+
+#selecao-produtos h2,
+#personalizar-sabonete h2,
+#desenvolvedores h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #403144;
+}
+
+#selecao-produtos label,
+#personalizar-sabonete label {
+  display: block;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+#selecao-produtos button,
+#personalizar-sabonete button {
+  padding: 10px 20px;
+  background-color: #44b475;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  color: #fff;
+  transition: background-color 0.3s;
+}
+
+#selecao-produtos button:hover,
+#personalizar-sabonete button:hover {
+  background-color: #13eb71;
+}
+
+select {
+  padding: 8px;
+  width: 80%;
+  margin-top: 5px;
+  border: 1px solid #c4b2d9;
+  border-radius: 5px;
+}
+
+/* Desenvolvedores */
+#desenvolvedores p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #403144;
+}
+
+/* Estilo da página Fale Conosco */
+.contato {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 30px;
+  background-color: #fdf9ff;
+  border: 2px solid #d7c9e6;
+  border-radius: 10px;
+  text-align: left;
+  color: #403144;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.contato h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #7e69a0;
+  text-align: center;
+}
+
+.contato p {
+  font-size: 18px;
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.contato a {
+  color: #7e69a0;
+  text-decoration: none;
+}
+
+.contato a:hover {
+  text-decoration: underline;
+}
+
+.conteudo-pagina {
+  max-width: 700px;
+  margin: 60px auto;
+  padding: 30px;
+  background-color: #fdf9ff;
+  border: 2px solid #d7c9e6;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  color: #403144;
+  text-align: left;
+}
+
+.conteudo-pagina h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #7e69a0;
+  text-align: center;
+}
+
+.conteudo-pagina p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+#leitor-pagina {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background-color: #7e69a0;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 999;
+  transition: background-color 0.3s;
+}
+
+#leitor-pagina:hover {
+  background-color: #5e4e79;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  box-sizing: border-box;
+}
+
+.modal-content button {
+  padding: 10px 20px;
+  background-color: #7e69a0;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.modal-content .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.caixa-admin {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+.caixa-admin h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.caixa-admin ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 10px;
+}
+
+.caixa-admin ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  padding: 4px 8px;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.caixa-admin input {
+  margin-right: 8px;
+  margin-bottom: 8px;
+  padding: 4px 8px;
+}
+
+.caixa-admin button {
+  padding: 5px 10px;
+  background-color: #4682b4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.caixa-admin button:hover {
+  background-color: #336699;
+}
+
+.caixa-admin ul li button {
+  background-color: #cc0000;
+  color: white;
+  padding: 4px 6px;
+  border: none;
+  border-radius: 4px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.caixa-admin ul li button:hover {
+  background-color: #a80000;
+}
+
+
+
+
+
+/* --- Estilo da Grade de Produtos --- */
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 250px; /* Largura fixa para o card */
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+    background: #fff;
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px); /* Efeito de subir ao passar o mouse */
+}
+
+/* Garante que a imagem se ajuste ao card */
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* Corta a imagem para caber sem distorcer */
+}
+
+.card-info {
+    padding: 15px;
+}
+
+.price {
+    color: #2e8b57; /* Verde */
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.btn-detalhes, .btn-comprar {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #6a0dad; /* Roxo da saboaria */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn-detalhes:hover {
+    background-color: #550a8a;
+}
+
+/* --- Estilo da Página de Detalhes --- */
+.detalhe-container {
+    display: flex;
+    gap: 40px;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.img-wrapper img {
+    max-width: 400px;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.preco-grande {
+    font-size: 2em;
+    color: #2e8b57;
+    margin: 20px 0;
+}
+
+/* --- Estilos de Validação em Tempo Real --- */
+#email-error, #phone-error, #password-strength, #password-match {
+    font-size: 12px;
+    margin-top: -8px;
+    margin-bottom: 8px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    display: none;
+    font-weight: 500;
+}
+
+#email-error, #phone-error {
+    color: #d32f2f;
+    background-color: #ffebee;
+    border-left: 3px solid #d32f2f;
+}
+
+#password-strength {
+    background-color: #f5f5f5;
+    padding: 8px 10px;
+    border-radius: 4px;
+}
+
+#password-strength[style*="color: green"], #password-match[style*="color: green"] {
+    color: #388e3c !important;
+    background-color: #e8f5e9;
+    border-left: 3px solid #388e3c;
+}
+
+#password-strength[style*="color: red"], #password-match[style*="color: red"] {
+    color: #d32f2f !important;
+    background-color: #ffebee;
+    border-left: 3px solid #d32f2f;
+}
+
+#password-strength[style*="color: orange"] {
+    color: #f57c00 !important;
+    background-color: #fff3e0;
+    border-left: 3px solid #f57c00;
+}
+
+#password-match {
+    padding: 8px 10px;
+}
+
+/* Melhorar inputs do formulário de cadastro */
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.modal-content input:focus {
+    outline: none;
+    border-color: #7e69a0;
+    box-shadow: 0 0 5px rgba(126, 105, 160, 0.3);
+}
+
+.modal-content input:invalid:not(:placeholder-shown) {
+    border-color: #d32f2f;
+}
+
+/* --- Menu de Usuário (Dropdown) --- */
+.user-menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+.user-menu {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 220px;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.user-menu.hidden {
+    display: none;
+}
+
+.user-menu-header {
+    padding: 12px 16px;
+    background-color: #f0e8f8;
+    border-bottom: 1px solid #e0d5f0;
+    font-weight: 600;
+    color: #403144;
+    font-size: 14px;
+}
+
+.user-menu-item {
+    display: block;
+    padding: 12px 16px;
+    color: #403144;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 14px;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.user-menu-item:hover {
+    background-color: #f5f0fb;
+    color: #7e69a0;
+}
+
+.user-menu-item.logout {
+    color: #d32f2f;
+}
+
+.user-menu-item.logout:hover {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.user-menu-divider {
+    height: 1px;
+    background-color: #e0d5f0;
+    margin: 0;
+}
+
+/* --- Modal de Gerenciar Conta --- */
+.account-modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.account-modal.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.account-modal-content {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.account-modal-close {
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+
+.account-modal-close:hover {
+    color: #333;
+}
+
+.account-modal h2 {
+    color: #403144;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.account-section {
+    margin-bottom: 25px;
+}
+
+.account-section h3 {
+    color: #7e69a0;
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.account-info {
+    background-color: #f5f0fb;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #403144;
+    margin-bottom: 10px;
+}
+
+.account-info label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.account-info span {
+    color: #666;
+}
+
+.edit-btn {
+    background-color: #7e69a0;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.3s;
+}
+
+.edit-btn:hover {
+    background-color: #6a5a89;
+}
+
+.delete-btn {
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.3s;
+    margin-left: 8px;
+}
+
+.delete-btn:hover {
+    background-color: #c62828;
+}
+
+.success-message {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    border-left: 4px solid #4caf50;
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    border-left: 4px solid #f44336;
+}
+
+#change-password-form input, #edit-name, #edit-phone {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* --- Sistema de Notificações --- */
+#notification-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 2000;
+    padding: 20px;
+    pointer-events: none;
+}
+
+.notification {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 300px;
+    pointer-events: auto;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+}
+
+.notification.hide {
+    animation: slideOut 0.3s ease-out;
+}
+
+.notification-icon {
+    font-size: 20px;
+    min-width: 24px;
+    text-align: center;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.notification-message {
+    font-size: 13px;
+    color: #666;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #999;
+    padding: 0;
+    margin-left: 8px;
+}
+
+.notification-close:hover {
+    color: #333;
+}
+
+/* Tipos de notificações */
+.notification.success {
+    border-left: 4px solid #4caf50;
+}
+
+.notification.success .notification-icon {
+    color: #4caf50;
+}
+
+.notification.success .notification-title {
+    color: #2e7d32;
+}
+
+.notification.error {
+    border-left: 4px solid #f44336;
+}
+
+.notification.error .notification-icon {
+    color: #f44336;
+}
+
+.notification.error .notification-title {
+    color: #c62828;
+}
+
+.notification.info {
+    border-left: 4px solid #2196f3;
+}
+
+.notification.info .notification-icon {
+    color: #2196f3;
+}
+
+.notification.info .notification-title {
+    color: #1565c0;
+}
+
+.notification.warning {
+    border-left: 4px solid #ff9800;
+}
+
+.notification.warning .notification-icon {
+    color: #ff9800;
+}
+
+.notification.warning .notification-title {
+    color: #e65100;
+}
